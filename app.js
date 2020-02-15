@@ -5,9 +5,11 @@ import { Strategy as LocalStrategy } from 'passport-local'
 import session from 'express-session'
 
 import { createUser } from '@controllers/user'
+import { createMessage, getMessagesForReceiversByLocation } from '@controllers/message'
 import { connectDb } from '@models'
 import User from '@models/user'
 import { isLoggedIn } from './src/middleware'
+
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -64,6 +66,10 @@ app.get('/login_success', (req, res) => {
 app.get('/secret', isLoggedIn, (req, res) => {
   res.send({ message: 'Secret' })
 })
+
+app.post('/send_message', isLoggedIn, createMessage)
+
+app.get('/find_messages', isLoggedIn, getMessagesForReceiversByLocation)
 
 app.listen(process.env.PORT, () => {
   console.log('Connecting to the DB...')
