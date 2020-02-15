@@ -2,17 +2,25 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
+import session from 'express-session'
 
 import { createUser } from '@controllers/user'
 import { connectDb } from '@models'
 import User from '@models/user'
+import { isLoggedIn } from './src/middleware'
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(session({
+  secret: 'SECRET',
+  saveUninitialized: true,
+  resave: true
+}))
 connectDb()
 app.use(passport.initialize())
 app.use(passport.session())
+
 passport.use(new LocalStrategy((((username, password, done) => {
   User.findOne({ username }, (err, user) => {
     if (err) { return done(err) }
@@ -26,6 +34,7 @@ passport.use(new LocalStrategy((((username, password, done) => {
     ))
   })
 }))))
+
 passport.serializeUser((user, done) => {
   done(null, user.id)
 })
@@ -40,16 +49,20 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post('/user', createUser)
+app.post('/create_user', createUser)
 
-app.post('/login', passport.authenticate('local', {
-  failureRedirect: '/'
-}), (req, res) => {
-  res.redirect('/login_success')
+app.post('/login', passport.authenticate('local'),
+  (req, res) => {
+    res.send(req.user)
+  })
+
+app.get('/login_success', (req, res) => {
+  res.status(200).send({ message: 'Successful Login.' })
 })
 
-app.get('/login_success', passport.authenticate('local'), (req, res) => {
-  res.status(200).send({ message: 'Successful Login.' })
+
+app.get('/secret', isLoggedIn, (req, res) => {
+  res.send({ message: 'Secret' })
 })
 
 app.listen(process.env.PORT, () => {
