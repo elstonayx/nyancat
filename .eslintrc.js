@@ -16,6 +16,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "semi": [2, "never"]
+    "semi": [2, "never"],
+    "import/prefer-default-export": 0
   },
 };
