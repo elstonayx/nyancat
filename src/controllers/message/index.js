@@ -7,11 +7,14 @@ export const createMessage = (req, res) => {
     location: req.body.location
   })
 
-  message.save().then(() => {
-    res.send(message)
-  }).catch((err) => {
-    res.status(400).send({ error: err })
-  })
+  message
+    .save()
+    .then(() => {
+      res.send(message)
+    })
+    .catch((err) => {
+      res.status(400).send({ error: err })
+    })
 }
 
 export const getMessagesForReceiversByLocation = (req, res) => {

@@ -34,6 +34,7 @@
     "nodemon": "^2.0.2"
   },
   "scripts": {
-    "server": "nodemon app.js --require dotenv/config --exec babel-node"
+    "server": "nodemon app.js --require dotenv/config --exec babel-node",
+    "build": "nodemon app.js --require dotenv/config --exec babel-node"
   }
 }

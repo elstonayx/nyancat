@@ -7,9 +7,12 @@ export const createUser = (req, res) => {
     location: req.body.location
   })
 
-  user.save().then(() => {
-    res.send(user)
-  }).catch((err) => {
-    res.status(400).send({ error: err })
-  })
+  user
+    .save()
+    .then(() => {
+      res.send(user)
+    })
+    .catch((err) => {
+      res.status(400).send({ error: err })
+    })
 }
