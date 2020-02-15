@@ -6,6 +6,7 @@ import { createMessage, getMessagesForReceiversByLocation } from '@controllers/m
 import { isLoggedIn } from './src/middleware'
 import { setup } from './setup'
 
+const PORT = process.env.PORT || 3000
 
 const app = express()
 setup(app)
@@ -34,7 +35,7 @@ app.post('/send_message', isLoggedIn, createMessage)
 
 app.get('/find_messages', isLoggedIn, getMessagesForReceiversByLocation)
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
   console.log('Connecting to the DB...')
-  console.log(`Listening on port ${process.env.PORT}...`)
+  console.log(`Listening on port ${PORT}...`)
 })
