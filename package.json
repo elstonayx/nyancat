@@ -1,0 +1,8 @@
+{
+  "name": "nyancat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/elstonayx/nyancat",
+  "author": "elstonayx <elston.ayx@u.nus.edu>",
+  "license": "MIT"
+}
