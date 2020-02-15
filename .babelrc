@@ -1,5 +1,16 @@
 {
     "presets": [
         "@babel/preset-env"
+    ],
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "alias": {
+                    "@controllers": "./src/controllers",
+                    "@models": "./src/models"
+                }
+            }
+        ]
     ]
 }

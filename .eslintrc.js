@@ -17,6 +17,16 @@ module.exports = {
   },
   rules: {
     "semi": [2, "never"],
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "comma-dangle": ["error", "never"],
+    "import-order": 0
   },
+  "settings": {
+    "import/resolver": {
+      "alias": [
+        ["@controllers", "./src/controllers"],
+        ["@models", "./src/models"],
+      ]
+    }
+  }
 };
