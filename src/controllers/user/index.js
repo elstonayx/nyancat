@@ -8,7 +8,7 @@ export const createUser = (req, res) => {
 
   user.save().then(() => {
     res.send(user)
-  }).catch(() => {
-    res.status(400).send('Bad data.')
+  }).catch((err) => {
+    res.status(400).send({ error: err })
   })
 }
