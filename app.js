@@ -1,51 +1,14 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import passport from 'passport'
-import { Strategy as LocalStrategy } from 'passport-local'
-import session from 'express-session'
 
 import { createUser } from '@controllers/user'
 import { createMessage, getMessagesForReceiversByLocation } from '@controllers/message'
-import { connectDb } from '@models'
-import User from '@models/user'
 import { isLoggedIn } from './src/middleware'
+import { setup } from './setup'
 
 
 const app = express()
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-app.use(session({
-  secret: 'SECRET',
-  saveUninitialized: true,
-  resave: true
-}))
-connectDb()
-app.use(passport.initialize())
-app.use(passport.session())
-
-passport.use(new LocalStrategy((((username, password, done) => {
-  User.findOne({ username }, (err, user) => {
-    if (err) { return done(err) }
-    if (!user) {
-      return done(null, false, { message: 'Incorrect username.' })
-    }
-    user.comparePassword(password, (_, isMatch) => (
-      isMatch
-        ? done(null, user)
-        : done(null, false, { message: 'Incorrect password.', error: err })
-    ))
-  })
-}))))
-
-passport.serializeUser((user, done) => {
-  done(null, user.id)
-})
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(err, user)
-  })
-})
-
+setup(app)
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
