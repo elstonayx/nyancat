@@ -30,3 +30,16 @@ export const getMessagesForReceiversByLocation = (req, res) => {
       res.send(messages)
     })
 }
+
+export const getSenderMessages = (req, res) => {
+  Message
+    .find({
+      sender: req.user.id
+    })
+    .exec((err, messages) => {
+      if (err) {
+        res.send(err)
+      }
+      res.send(messages)
+    })
+}

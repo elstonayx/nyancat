@@ -2,9 +2,10 @@ import express from 'express'
 import passport from 'passport'
 
 import { createUser } from '@controllers/user'
-import { createMessage, getMessagesForReceiversByLocation } from '@controllers/message'
+import { createMessage, getMessagesForReceiversByLocation, getSenderMessages } from '@controllers/message'
 import { isLoggedIn } from './src/middleware'
 import { setup } from './setup'
+
 
 const PORT = process.env.PORT || 3000
 
@@ -34,6 +35,8 @@ app.get('/secret', isLoggedIn, (req, res) => {
 app.post('/send_message', isLoggedIn, createMessage)
 
 app.get('/find_messages', isLoggedIn, getMessagesForReceiversByLocation)
+
+app.get('/find_sender_messages', isLoggedIn, getSenderMessages)
 
 app.listen(PORT, () => {
   console.log('Connecting to the DB...')
