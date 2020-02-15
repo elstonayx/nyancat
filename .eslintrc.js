@@ -19,7 +19,9 @@ module.exports = {
     "semi": [2, "never"],
     "import/prefer-default-export": 0,
     "comma-dangle": ["error", "never"],
-    "import-order": 0
+    "import-order": 0,
+    "consistent-return": 0,
+    "no-shadow": 0
   },
   "settings": {
     "import/resolver": {
