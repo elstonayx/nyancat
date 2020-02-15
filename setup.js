@@ -2,10 +2,13 @@ import bodyParser from 'body-parser'
 import session from 'express-session'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
+import cors from 'cors'
+
 import { connectDb } from '@models'
 import User from '@models/user'
 
 export const setup = (app) => {
+  app.use(cors())
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
   app.use(session({
