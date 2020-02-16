@@ -1,4 +1,5 @@
 import Issue from '@models/issue'
+import User from '@models/user'
 
 export const createIssue = (req, res) => {
   const issue = new Issue({
@@ -20,10 +21,13 @@ export const createIssue = (req, res) => {
     })
 }
 
-export const findIssuesByCountry = (req, res) => {
-  Issue
+export const findIssuesByRequesterCountry = async (req, res) => {
+  const docs = await User.findById(req.user).select('location')
+
+  await Issue
     .find({
-      country: req.query.country
+      country: docs.location,
+      requester: { $ne: req.user }
     })
     .exec((err, issues) => {
       if (err) {

@@ -5,7 +5,7 @@ import { createUser } from '@controllers/user'
 import { createMessage, getMessagesForReceiversByLocation, getSenderMessages } from '@controllers/message'
 import {
   createIssue,
-  findIssuesByCountry,
+  findIssuesByRequesterCountry,
   findIssuesByUser
 } from '@controllers/issue'
 import { isLoggedIn } from './src/middleware'
@@ -45,7 +45,7 @@ app.get('/find_sender_messages', isLoggedIn, getSenderMessages)
 
 app.post('/send_issue', isLoggedIn, createIssue)
 
-app.get('/find_issues_by_country', isLoggedIn, findIssuesByCountry)
+app.get('/find_issues_by_country', isLoggedIn, findIssuesByRequesterCountry)
 
 app.get('/find_issues_by_user', isLoggedIn, findIssuesByUser)
 
