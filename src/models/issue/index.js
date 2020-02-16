@@ -26,6 +26,6 @@ const IssueSchema = mongoose.Schema({
   }
 })
 
-const Issue = IssueSchema.model('Issue', IssueSchema)
+const Issue = mongoose.model('Issue', IssueSchema)
 
 export default Issue
