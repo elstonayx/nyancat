@@ -19,38 +19,25 @@ const app = express()
 setup(app)
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('nyancat')
 })
 
+// User routes
 app.post('/create_user', createUser)
-
 app.post('/login', passport.authenticate('local'),
   (req, res) => {
     res.send(req.user)
   })
 
-app.get('/login_success', (req, res) => {
-  res.status(200).send({ message: 'Successful Login.' })
-})
-
-
-app.get('/secret', isLoggedIn, (req, res) => {
-  res.send({ message: 'Secret' })
-})
-
+// Message Routes
 app.post('/send_message', isLoggedIn, createMessage)
-
-
 app.get('/find_messages', isLoggedIn, getMessagesForReceiversByLocation)
-
 app.get('/find_sender_messages', isLoggedIn, getSenderMessages)
 
+// Issue Routes
 app.post('/send_issue', isLoggedIn, createIssue)
-
 app.patch('/update_issue', isLoggedIn, updateIssue)
-
 app.get('/find_issues_by_country', isLoggedIn, findIssuesByRequesterCountry)
-
 app.get('/find_issues_by_user', isLoggedIn, findIssuesByUser)
 
 app.listen(PORT, () => {

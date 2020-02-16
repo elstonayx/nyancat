@@ -26,7 +26,7 @@ export const findIssuesByRequesterCountry = async (req, res) => {
 
   await Issue
     .find({
-      country: docs.location.toLower(),
+      country: docs.location,
       requester: { $ne: req.user }
     })
     .exec((err, issues) => {
