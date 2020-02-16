@@ -73,3 +73,22 @@ export const updateIssue = (req, res) => {
       }
     )
 }
+
+export const respondIssue = (req, res) => {
+  Issue
+    .findByIdAndUpdate(
+      req.query.id,
+      {
+        responder: req.user
+      },
+      {
+        new: true
+      },
+      (err, issues) => {
+        if (err) {
+          res.send(err)
+        }
+        res.send(issues)
+      }
+    )
+}

@@ -2,12 +2,13 @@ import express from 'express'
 import passport from 'passport'
 
 import { createUser } from '@controllers/user'
-import { createMessage, getMessagesForReceiversByLocation, getSenderMessages } from '@controllers/message'
+import { createMessage, findRelatedMessages } from '@controllers/message'
 import {
   createIssue,
   findIssuesByRequesterCountry,
   findIssuesByUser,
-  updateIssue
+  updateIssue,
+  respondIssue
 } from '@controllers/issue'
 import { isLoggedIn } from './src/middleware'
 import { setup } from './setup'
@@ -31,14 +32,15 @@ app.post('/login', passport.authenticate('local'),
 
 // Message Routes
 app.post('/send_message', isLoggedIn, createMessage)
-app.get('/find_messages', isLoggedIn, getMessagesForReceiversByLocation)
-app.get('/find_sender_messages', isLoggedIn, getSenderMessages)
+app.get('/get_messages', isLoggedIn, findRelatedMessages)
 
 // Issue Routes
 app.post('/send_issue', isLoggedIn, createIssue)
 app.patch('/update_issue', isLoggedIn, updateIssue)
 app.get('/find_issues_by_country', isLoggedIn, findIssuesByRequesterCountry)
 app.get('/find_issues_by_user', isLoggedIn, findIssuesByUser)
+app.patch('/respond_issue', isLoggedIn, respondIssue)
+
 
 app.listen(PORT, () => {
   console.log('Connecting to the DB...')

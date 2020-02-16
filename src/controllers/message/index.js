@@ -1,41 +1,35 @@
 import { Message } from '@models/message'
+import { Issue } from '../../models/issue'
 
 export const createMessage = (req, res) => {
   const message = new Message({
-    message: req.body.message,
-    sender: req.user,
-    location: req.body.location
+    content: req.body.content,
+    sender: req.user
   })
 
   message
     .save()
     .then(() => {
-      res.send(message)
+      Issue
+        .findOneAndUpdate({ _id: req.body.issueId },
+          { $push: { messages: message } },
+          { new: true })
+        .exec((err, issue) => {
+          if (err) {
+            res.send(err)
+          }
+          res.status(200).send(issue)
+        })
     })
     .catch((err) => {
       res.status(400).send({ error: err })
     })
 }
 
-export const getMessagesForReceiversByLocation = (req, res) => {
-  Message
-    .find({
-      location: req.params.location
-    })
-    .populate('sender', 'location')
-    .exec((err, messages) => {
-      if (err) {
-        res.send(err)
-      }
-      res.send(messages)
-    })
-}
-
-export const getSenderMessages = (req, res) => {
-  Message
-    .find({
-      sender: req.user.id
-    })
+export const findRelatedMessages = (req, res) => {
+  Issue
+    .findById({ id: req.query.issueId })
+    .select('messages')
     .exec((err, messages) => {
       if (err) {
         res.send(err)

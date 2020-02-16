@@ -6,21 +6,13 @@ export const MessageSchema = new mongoose.Schema({
     required: true,
     default: Date.now()
   },
-  message: {
+  content: {
     type: String,
     required: true
   },
   sender: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
-  },
-  receiver: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  location: {
-    type: String,
     required: true
   },
   image: {
