@@ -6,13 +6,14 @@ export const createIssue = (req, res) => {
     tags: req.body.tags,
     country: req.body.country,
     category: req.body.category,
-    requester: req.body.user
+    requester: req.user,
+    details: req.body.details
   })
 
   issue
     .save()
     .then(() => {
-      res.send(message)
+      res.send(issue)
     })
     .catch((err) => {
       res.status(400).send({ error: err })
@@ -22,7 +23,7 @@ export const createIssue = (req, res) => {
 export const findIssuesByCountry = (req, res) => {
   Issue
     .find({
-      country: req.params.country
+      country: req.query.country
     })
     .exec((err, issues) => {
       if (err) {

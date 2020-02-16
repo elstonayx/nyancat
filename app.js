@@ -45,9 +45,9 @@ app.get('/find_sender_messages', isLoggedIn, getSenderMessages)
 
 app.post('/send_issue', isLoggedIn, createIssue)
 
-app.get('/find_issue_per_country', isLoggedIn, findIssuesByCountry)
+app.get('/find_issues_by_country', isLoggedIn, findIssuesByCountry)
 
-app.get('/find_issue_by_user', isLoggedIn, findIssuesByUser)
+app.get('/find_issues_by_user', isLoggedIn, findIssuesByUser)
 
 app.listen(PORT, () => {
   console.log('Connecting to the DB...')
