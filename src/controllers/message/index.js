@@ -28,12 +28,12 @@ export const createMessage = (req, res) => {
 
 export const findRelatedMessages = (req, res) => {
   Issue
-    .findById({ _id: req.query.issueId })
+    .findById(req.query.issueId)
     .select('messages')
     .exec((err, messages) => {
       if (err) {
-        res.send(err)
+        return res.send(err)
       }
-      res.send(messages)
+      return res.send(messages)
     })
 }
