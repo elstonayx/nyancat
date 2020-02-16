@@ -6,7 +6,8 @@ import { createMessage, getMessagesForReceiversByLocation, getSenderMessages } f
 import {
   createIssue,
   findIssuesByRequesterCountry,
-  findIssuesByUser
+  findIssuesByUser,
+  updateIssue
 } from '@controllers/issue'
 import { isLoggedIn } from './src/middleware'
 import { setup } from './setup'
@@ -39,11 +40,14 @@ app.get('/secret', isLoggedIn, (req, res) => {
 
 app.post('/send_message', isLoggedIn, createMessage)
 
+
 app.get('/find_messages', isLoggedIn, getMessagesForReceiversByLocation)
 
 app.get('/find_sender_messages', isLoggedIn, getSenderMessages)
 
 app.post('/send_issue', isLoggedIn, createIssue)
+
+app.patch('/update_issue', isLoggedIn, updateIssue)
 
 app.get('/find_issues_by_country', isLoggedIn, findIssuesByRequesterCountry)
 

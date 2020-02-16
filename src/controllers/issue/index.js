@@ -26,7 +26,7 @@ export const findIssuesByRequesterCountry = async (req, res) => {
 
   await Issue
     .find({
-      country: docs.location,
+      country: docs.location.toLower(),
       requester: { $ne: req.user }
     })
     .exec((err, issues) => {
@@ -48,4 +48,28 @@ export const findIssuesByUser = (req, res) => {
       }
       res.send(issues)
     })
+}
+
+export const updateIssue = (req, res) => {
+  Issue
+    .findByIdAndUpdate(
+      req.query.id,
+      {
+        topic: req.body.topic,
+        tags: req.body.tags,
+        country: req.body.country,
+        category: req.body.category,
+        details: req.body.details
+      },
+      {
+        omitUndefined: true,
+        new: true
+      },
+      (err, issues) => {
+        if (err) {
+          res.send(err)
+        }
+        res.send(issues)
+      }
+    )
 }
