@@ -3,6 +3,11 @@ import passport from 'passport'
 
 import { createUser } from '@controllers/user'
 import { createMessage, getMessagesForReceiversByLocation, getSenderMessages } from '@controllers/message'
+import {
+  createIssue,
+  findIssuesByCountry,
+  findIssuesByUser
+} from '@controllers/issue'
 import { isLoggedIn } from './src/middleware'
 import { setup } from './setup'
 
@@ -37,6 +42,12 @@ app.post('/send_message', isLoggedIn, createMessage)
 app.get('/find_messages', isLoggedIn, getMessagesForReceiversByLocation)
 
 app.get('/find_sender_messages', isLoggedIn, getSenderMessages)
+
+app.post('/send_issue', isLoggedIn, createIssue)
+
+app.get('/find_issue_per_country', isLoggedIn, findIssuesByCountry)
+
+app.get('/find_issue_by_user', isLoggedIn, findIssuesByUser)
 
 app.listen(PORT, () => {
   console.log('Connecting to the DB...')
