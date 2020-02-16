@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
-import Message from '@models/message'
+import MessageSchema from '@models/message'
 import { categoryList, countryList } from './constants'
 
-const IssueSchema = mongoose.Schema({
+export const IssueSchema = mongoose.Schema({
   topic: {
     type: String,
     required: true
@@ -28,16 +28,13 @@ const IssueSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  // messages: {
-  //   type: [Message]
-  // },
+  messages: {
+    type: [MessageSchema]
+  },
   responder: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
+    type: mongoose.Schema.Types.ObjectId
   }
 
 })
 
-const Issue = mongoose.model('Issue', IssueSchema)
-
-export default Issue
+export const Issue = mongoose.model('Issue', IssueSchema)

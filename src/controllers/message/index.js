@@ -1,4 +1,4 @@
-import Message from '@models/message'
+import { Message } from '@models/message'
 
 export const createMessage = (req, res) => {
   const message = new Message({

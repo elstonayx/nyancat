@@ -1,5 +1,5 @@
-import Issue from '@models/issue'
-import User from '@models/user'
+import { Issue } from '@models/issue'
+import { User } from '@models/user'
 
 export const createIssue = (req, res) => {
   const issue = new Issue({

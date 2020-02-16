@@ -55,6 +55,4 @@ UserSchema.methods.comparePassword = function (candidatePassword, cb) {
 
 UserSchema.plugin(passportLocalMongoose)
 
-const User = mongoose.model('User', UserSchema)
-
-export default User
+export const User = mongoose.model('User', UserSchema)
