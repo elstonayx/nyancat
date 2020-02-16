@@ -1,4 +1,5 @@
-HACK@CEWIT 2020
+HACK@CEWIT 2020 - Agora Conversation Platform
+
 **Summary** 
 
 Agora is an online platform that creates powerful conversations between individuals, wherever they are in the world. Individuals can anonymously submit questions they have, and the platform links these questions with members on the platform most qualified to respond to them.
